@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "481991941224",
+    "firebase_url": "https://password-fa9b6-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "password-fa9b6",
+    "storage_bucket": "password-fa9b6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481991941224:android:0923ed8633c3686fabefdd",
+        "android_client_info": {
+          "package_name": "com.synth.password"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfzkabSCSphhT4MRihLYqTS_IaQqeoVhM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
