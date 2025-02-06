@@ -1,4 +1,4 @@
-package com.synth.password.data
+package com.synth.password.data.local
 
 import android.content.Context
 import androidx.room.Database

@@ -1,7 +1,7 @@
 package com.synth.password.repository
 
-import com.synth.password.data.User
-import com.synth.password.data.UserDao
+import com.synth.password.data.local.User
+import com.synth.password.data.local.UserDao
 
 class UserRepository(private val userDao: UserDao) {
     suspend fun registerUser(user: User) {

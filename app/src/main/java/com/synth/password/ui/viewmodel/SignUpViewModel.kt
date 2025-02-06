@@ -2,7 +2,7 @@ package com.synth.password.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.synth.password.data.User
+import com.synth.password.data.local.User
 import com.synth.password.repository.UserRepository
 import kotlinx.coroutines.launch
 

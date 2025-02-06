@@ -50,33 +50,33 @@ fun MainScreen(navController: NavController, modifier: Modifier = Modifier) {
     }
     val scaffoldState = rememberBottomSheetScaffoldState()
     val scope = rememberCoroutineScope()
+    val items = listOf(
+        BottomNavigationItem(
+            "home",
+            ImageVector.vectorResource(R.drawable.home__1__1),
+            ImageVector.vectorResource(R.drawable.home_def)
+        ) ,
+        BottomNavigationItem(
+            "add",
+            ImageVector.vectorResource(R.drawable.add),
+            ImageVector.vectorResource(R.drawable.add_def)
+        ) ,
+        BottomNavigationItem(
+            "profile",
+            ImageVector.vectorResource(R.drawable.profile),
+            ImageVector.vectorResource(R.drawable.profile_def)
+        )
+    )
 
     BottomSheetScaffold(
         sheetContainerColor = Color.White,
         scaffoldState = scaffoldState,
 //            Triển khai Bottom Sheet tại đây
-        sheetContent = { AddBottomSheet() },
+        sheetContent = { AddBottomSheet(navController) },
         sheetPeekHeight = 0.dp
     ) {
         Scaffold(
             bottomBar = {
-                val items = listOf(
-                    BottomNavigationItem(
-                        "home",
-                        ImageVector.vectorResource(R.drawable.home__1__1),
-                        ImageVector.vectorResource(R.drawable.home_def)
-                    ) ,
-                    BottomNavigationItem(
-                        "add",
-                        ImageVector.vectorResource(R.drawable.add),
-                        ImageVector.vectorResource(R.drawable.add_def)
-                    ) ,
-                    BottomNavigationItem(
-                        "profile",
-                        ImageVector.vectorResource(R.drawable.profile),
-                        ImageVector.vectorResource(R.drawable.profile_def)
-                    )
-                )
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxWidth()

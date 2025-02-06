@@ -24,7 +24,7 @@ import com.synth.password.ui.components.PassWordTextField
 import com.synth.password.ui.components.SignInButton
 import com.synth.password.ui.viewmodel.SignUpViewModel
 import com.synth.password.ViewModelFactory
-import com.synth.password.data.User
+import com.synth.password.data.local.User
 import com.synth.password.navigation.PassWordDestinations
 
 @Composable

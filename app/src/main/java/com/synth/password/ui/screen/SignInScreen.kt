@@ -40,80 +40,70 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SignInScreen(
-    viewModelFactory: ViewModelFactory,
-    navController: NavController,
-    modifier: Modifier = Modifier
+    viewModelFactory : ViewModelFactory ,
+    navController : NavController ,
+    modifier : Modifier = Modifier ,
 ) {
     val context = LocalContext.current
-    val signInViewModel: SignInViewModel = viewModel(factory = viewModelFactory)
-    val keyboardController = LocalSoftwareKeyboardController.current
+    val signInViewModel : SignInViewModel = viewModel(factory = viewModelFactory)
     var password by remember { mutableStateOf("") }
     var gmail by remember { mutableStateOf("") }
 
-    Surface(
-        color = MaterialTheme.colorScheme.surface,
-        modifier = Modifier.pointerInput(Unit) {
-            detectTapGestures {
-                // Ẩn bàn phím khi nhấn ra ngoài
-                keyboardController?.hide()
-            }
-        }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(48.dp)
     ) {
-        Column(
+        Text(
+            text = stringResource(id = R.string.app_name) ,
+            color = MaterialTheme.colorScheme.primary ,
+            style = signInTypo ,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+        Spacer(modifier = Modifier.height(48.dp))
+        EmailTextField(email = gmail , onEmailChange = { gmail = it })
+        Spacer(modifier = Modifier.height(48.dp))
+        PassWordTextField("Mật khẩu" , password = password , onPasswordChange = { password = it })
+        Row(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(48.dp)
+                .fillMaxWidth()
+                .padding(top = 24.dp)
         ) {
+            Text(text = "Bạn chưa có tài khoản?" , style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = stringResource(id = R.string.app_name),
-                color = MaterialTheme.colorScheme.primary,
-                style = signInTypo ,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-            Spacer(modifier = Modifier.height(48.dp))
-            EmailTextField(email = gmail, onEmailChange = { gmail = it })
-            Spacer(modifier = Modifier.height(48.dp))
-            PassWordTextField("Mật khẩu", password = password, onPasswordChange = { password = it })
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 24.dp)
-            ) {
-                Text(text = "Bạn chưa có tài khoản?", style = MaterialTheme.typography.titleMedium)
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "Đăng kí ngay",
-                    style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.primary),
-                    modifier = Modifier.pointerInput(Unit) {
-                        detectTapGestures {
-                            // Điều hướng đến màn hình sign up
-                            navController.navigate(PassWordDestinations.SignUp.route)
-                        }
+                text = "Đăng kí ngay" ,
+                style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.primary) ,
+                modifier = Modifier.pointerInput(Unit) {
+                    detectTapGestures {
+                        // Điều hướng đến màn hình sign up
+                        navController.navigate(PassWordDestinations.SignUp.route)
                     }
-                )
-            }
-            Spacer(
-                modifier = Modifier.weight(1f)
+                }
             )
-            SignInButton(
-                title = "Đăng nhập",
-                onClick = {
-                    signInViewModel.viewModelScope.launch {
-                        if (signInViewModel.loginUser(gmail = gmail, password = password))
-                            navController.navigate(PassWordDestinations.Main.route) {
-                                popUpTo(PassWordDestinations.SignIn.route) {
-                                    inclusive = true
-                                }
-                            }
-                        else Toast.makeText(
-                            context,
-                            "Bạn đã điền thông tin sai",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                },
-            )
-
         }
+        Spacer(
+            modifier = Modifier.weight(1f)
+        )
+        SignInButton(
+            title = "Đăng nhập" ,
+            onClick = {
+                signInViewModel.viewModelScope.launch {
+                    if (signInViewModel.loginUser(gmail = gmail , password = password))
+                        navController.navigate(PassWordDestinations.Main.route) {
+                            popUpTo(PassWordDestinations.SignIn.route) {
+                                inclusive = true
+                            }
+                        }
+                    else Toast.makeText(
+                        context ,
+                        "Bạn đã điền thông tin sai" ,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } ,
+        )
+
     }
+
 }

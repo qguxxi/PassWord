@@ -23,12 +23,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.synth.password.ui.components.IconWithCircle
 import com.synth.password.ui.theme.smallTypo
 import com.synth.password.R
 
 @Composable
-fun AddBottomSheet() {
+fun AddBottomSheet(navController : NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,7 +43,7 @@ fun AddBottomSheet() {
         ) {
             Button(
                 shape = RoundedCornerShape(5.dp),
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate("account") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = Color.Black)
                 ) {
                 Row(
@@ -99,5 +101,5 @@ fun AddBottomSheet() {
 @Preview(showBackground = true)
 @Composable
 private fun AddBottomSheetPreview() {
-    AddBottomSheet()
+    AddBottomSheet(navController = rememberNavController())
 }

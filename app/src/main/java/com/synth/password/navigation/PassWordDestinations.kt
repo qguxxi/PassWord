@@ -7,5 +7,7 @@ sealed class PassWordDestinations(val route: String) {
     data object Add : PassWordDestinations("add")
     data object Profile : PassWordDestinations("profile")
     data object Main : PassWordDestinations("main")
-    data object Biometric : PassWordDestinations("biometric")
+    data object Account : PassWordDestinations("account")
+    data object Password : PassWordDestinations("password")
+    data object Card : PassWordDestinations("card")
 }

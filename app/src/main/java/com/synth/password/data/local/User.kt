@@ -1,4 +1,4 @@
-package com.synth.password.data
+package com.synth.password.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
