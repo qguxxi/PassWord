@@ -60,7 +60,7 @@ fun AddBottomSheet(navController : NavController) {
             }
             Button(
                 shape = RoundedCornerShape(5.dp),
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate("card") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = Color.Black)
             ) {
                 Row(

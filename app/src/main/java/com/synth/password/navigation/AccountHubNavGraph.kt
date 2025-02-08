@@ -17,6 +17,8 @@ import com.synth.password.ViewModelFactory
 import com.synth.password.data.local.AppDatabase
 import com.synth.password.repository.UserRepository
 import com.synth.password.ui.screen.AccountScreen
+import com.synth.password.ui.screen.CardScreen
+import com.synth.password.ui.viewmodel.AccountViewModel
 
 @Composable
 fun PassWordNavGraph(navController: NavHostController = rememberNavController()) {
@@ -45,6 +47,9 @@ fun PassWordNavGraph(navController: NavHostController = rememberNavController())
         }
         composable(route = PassWordDestinations.Account.route) {
             AccountScreen(navController)
+        }
+        composable(route = PassWordDestinations.Card.route) {
+            CardScreen(navController)
         }
     }
 }

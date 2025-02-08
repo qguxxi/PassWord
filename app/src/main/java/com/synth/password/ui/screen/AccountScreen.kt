@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,9 +36,10 @@ import com.synth.password.data.local.Account
 import com.synth.password.navigation.PassWordDestinations
 import com.synth.password.ui.components.CustomTextField
 import com.synth.password.ui.viewmodel.AccountViewModel
+import java.util.UUID
 
 @Composable
-fun AccountScreen(navController: NavController,accountViewModel: AccountViewModel = viewModel(), modifier: Modifier = Modifier) {
+fun AccountScreen(navController: NavController, modifier: Modifier = Modifier) {
     var title by remember { mutableStateOf("") }
     var account by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -121,8 +123,7 @@ fun AccountScreen(navController: NavController,accountViewModel: AccountViewMode
                 }
                 Spacer(modifier = Modifier.height(24.dp))
                 Button(onClick = {
-                    val newAccount = Account("unique_id",title,account,password)
-                    accountViewModel.saveAccountData(newAccount)
+                    navController.navigate(PassWordDestinations.Main.route) // Navigate back to HomeScreen
                 }) {
                     Text(text = "Hoàn thành")
                 }
@@ -130,7 +131,6 @@ fun AccountScreen(navController: NavController,accountViewModel: AccountViewMode
         }
     }
 }
-
 
 
 @Preview

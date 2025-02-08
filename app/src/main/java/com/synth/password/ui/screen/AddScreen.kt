@@ -32,45 +32,12 @@ import androidx.navigation.NavController
 import com.synth.password.R
 import com.synth.password.data.local.Account
 import com.synth.password.navigation.PassWordDestinations
+import com.synth.password.ui.components.CardTextField
 import com.synth.password.ui.components.CustomTextField
 import com.synth.password.ui.viewmodel.AccountViewModel
 
 @Composable
 fun AddScreen(modifier: Modifier = Modifier) {
-    var title by remember { mutableStateOf("") }
-    var account by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
-    Surface(
-        color = MaterialTheme.colorScheme.surface
-    ) {
-        Column {
-            IconButton(
-                onClick = {},
-                modifier = Modifier.padding(24.dp)
-            ) {
-                Icon(ImageVector.vectorResource(R.drawable.close), null)
-            }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                CustomTextField(
-                    value = title,
-                    onValueChange = {
-                        title = it
-                    },
-                    label = { Text("Tiêu đề") },
-                )
-                Spacer(Modifier.height(32.dp))
-                Spacer(modifier = Modifier.height(24.dp))
-                Button(onClick = {}) {
-                    Text(text = "Hoàn thành")
-                }
-
-            }
-        }
-    }
 }
 
 @Preview

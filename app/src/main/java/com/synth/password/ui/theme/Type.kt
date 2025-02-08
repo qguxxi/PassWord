@@ -60,6 +60,18 @@ val smallTypo = TextStyle(
     fontSize = 10.sp,
     fontFamily = displayFontFamily ,
     fontWeight = FontWeight(400),
-    color = Color(0x80000000),
+    color = Color(0x80000000))
+val mediumTypo = TextStyle(
+    fontSize = 16.sp,
+    fontFamily = displayFontFamily,
+    fontWeight = FontWeight(600),
+    color = Color(0xFF000000),
+    )
+val largeTypo = TextStyle(
+    fontSize = 24.sp,
+    lineHeight = 28.sp,
+    fontFamily = displayFontFamily,
+    fontWeight = FontWeight(600),
+    color = Color(0xFF000000),
 
     )

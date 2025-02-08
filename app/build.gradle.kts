@@ -54,18 +54,21 @@ android {
 dependencies {
 implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.crashlytics.buildtools)
+    implementation(libs.androidx.runtime.livedata)
+
     // Room
     val room_version = "2.6.1"
     implementation ("androidx.room:room-runtime:$room_version")
     implementation ("androidx.room:room-ktx:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
 
-    val nav_version = "2.8.4"
+    val nav_version = "2.8.6"
     // Jetpack Compose integration
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
     //  Splash Screen
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
 
 
