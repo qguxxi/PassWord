@@ -29,10 +29,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.synth.password.R
+import com.synth.password.data.local.AppDatabase
+import com.synth.password.repository.AccountRepository
+import com.synth.password.repository.UserRepository
+import com.synth.password.ui.viewmodel.AccountViewModel
 import kotlinx.coroutines.launch
 
 data class BottomNavigationItem(
@@ -138,6 +143,9 @@ fun MainScreen(navController: NavController, modifier: Modifier = Modifier) {
 
 @Composable
 fun ContentScreen(navController: NavController, index: Int, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    val appDatabase = AppDatabase.getInstance(context)
+    val userDao = appDatabase.userDao()
     when (index) {
         0 -> HomeScreen()
         1 -> AddScreen()

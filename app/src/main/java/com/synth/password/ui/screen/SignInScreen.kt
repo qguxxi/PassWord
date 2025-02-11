@@ -36,16 +36,18 @@ import com.synth.password.ViewModelFactory
 import com.synth.password.navigation.PassWordDestinations
 import com.synth.password.ui.components.EmailTextField
 import com.synth.password.ui.components.PassWordTextField
+import com.synth.password.ui.viewmodel.SharedViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun SignInScreen(
-    viewModelFactory : ViewModelFactory ,
-    navController : NavController ,
-    modifier : Modifier = Modifier ,
+    viewModelFactory: ViewModelFactory,
+    sharedViewModel: SharedViewModel,
+    navController: NavController,
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    val signInViewModel : SignInViewModel = viewModel(factory = viewModelFactory)
+    val signInViewModel: SignInViewModel = viewModel(factory = viewModelFactory)
     var password by remember { mutableStateOf("") }
     var gmail by remember { mutableStateOf("") }
 
@@ -55,25 +57,25 @@ fun SignInScreen(
             .padding(48.dp)
     ) {
         Text(
-            text = stringResource(id = R.string.app_name) ,
-            color = MaterialTheme.colorScheme.primary ,
-            style = signInTypo ,
+            text = stringResource(id = R.string.app_name),
+            color = MaterialTheme.colorScheme.primary,
+            style = signInTypo,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.height(48.dp))
-        EmailTextField(email = gmail , onEmailChange = { gmail = it })
+        EmailTextField(email = gmail, onEmailChange = { gmail = it })
         Spacer(modifier = Modifier.height(48.dp))
-        PassWordTextField("Mật khẩu" , password = password , onPasswordChange = { password = it })
+        PassWordTextField("Mật khẩu", password = password, onPasswordChange = { password = it })
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 24.dp)
         ) {
-            Text(text = "Bạn chưa có tài khoản?" , style = MaterialTheme.typography.titleMedium)
+            Text(text = "Bạn chưa có tài khoản?", style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Đăng kí ngay" ,
-                style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.primary) ,
+                text = "Đăng kí ngay",
+                style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.primary),
                 modifier = Modifier.pointerInput(Unit) {
                     detectTapGestures {
                         // Điều hướng đến màn hình sign up
@@ -86,22 +88,24 @@ fun SignInScreen(
             modifier = Modifier.weight(1f)
         )
         SignInButton(
-            title = "Đăng nhập" ,
+            title = "Đăng nhập",
             onClick = {
+                sharedViewModel.setUserData(gmail, password)
                 signInViewModel.viewModelScope.launch {
-                    if (signInViewModel.loginUser(gmail = gmail , password = password))
+                    if (signInViewModel.loginUser(gmail = gmail, password = password)) {
                         navController.navigate(PassWordDestinations.Main.route) {
                             popUpTo(PassWordDestinations.SignIn.route) {
                                 inclusive = true
                             }
                         }
+                    }
                     else Toast.makeText(
-                        context ,
-                        "Bạn đã điền thông tin sai" ,
+                        context,
+                        "Bạn đã điền thông tin sai",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            } ,
+            },
         )
 
     }

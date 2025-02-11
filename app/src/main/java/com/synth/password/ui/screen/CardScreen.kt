@@ -44,7 +44,9 @@ fun CardScreen(navController: NavController) {
     ) {
         Column {
             IconButton(
-                onClick = {navController.navigate(PassWordDestinations.Home.route)},
+                onClick = {
+                    navController.navigate(PassWordDestinations.Main.route)
+                },
                 modifier = Modifier.padding(24.dp)
             ) {
                 Icon(ImageVector.vectorResource(R.drawable.close), null)
@@ -75,7 +77,7 @@ fun CardScreen(navController: NavController) {
                     "Mật khẩu",
                     password,
                     modifier = Modifier
-                ) { newPassword->
+                ) { newPassword ->
                     password = newPassword
                 }
                 Spacer(modifier = Modifier.height(12.dp))

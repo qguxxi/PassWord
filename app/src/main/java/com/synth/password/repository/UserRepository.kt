@@ -12,4 +12,10 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.loginUser(gmail, password)
     }
 
+    suspend fun getUserId(gmail: String, password: String): Int? {
+        val user = userDao.loginUser(gmail, password)
+        return user?.id
+    }
+
+
 }

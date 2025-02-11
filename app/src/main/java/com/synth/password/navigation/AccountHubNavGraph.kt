@@ -15,10 +15,13 @@ import com.synth.password.ui.screen.SignInScreen
 import com.synth.password.ui.screen.SignUpScreen
 import com.synth.password.ViewModelFactory
 import com.synth.password.data.local.AppDatabase
+import com.synth.password.data.local.UserDao
+import com.synth.password.repository.AccountRepository
 import com.synth.password.repository.UserRepository
 import com.synth.password.ui.screen.AccountScreen
 import com.synth.password.ui.screen.CardScreen
 import com.synth.password.ui.viewmodel.AccountViewModel
+import com.synth.password.ui.viewmodel.SharedViewModel
 
 @Composable
 fun PassWordNavGraph(navController: NavHostController = rememberNavController()) {
@@ -34,7 +37,7 @@ fun PassWordNavGraph(navController: NavHostController = rememberNavController())
             SignUpScreen(viewModelFactory,navController)
         }
         composable(route = PassWordDestinations.SignIn.route) {
-            SignInScreen(viewModelFactory,navController)
+            SignInScreen(viewModelFactory, sharedViewModel = SharedViewModel(), navController)
         }
         composable(route = PassWordDestinations.Add.route) {
             AddScreen()
@@ -46,7 +49,7 @@ fun PassWordNavGraph(navController: NavHostController = rememberNavController())
             MainScreen(navController)
         }
         composable(route = PassWordDestinations.Account.route) {
-            AccountScreen(navController)
+            AccountScreen(accountViewModel = AccountViewModel(userRepository = UserRepository(userDao), AccountRepository()),navController)
         }
         composable(route = PassWordDestinations.Card.route) {
             CardScreen(navController)

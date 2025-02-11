@@ -12,4 +12,7 @@ interface UserDao {
 
     @Query("SELECT * FROM user_accounts_table WHERE gmail = :gmail AND password = :password")
     suspend fun loginUser(gmail: String, password: String): User?
+
+    @Query("SELECT id FROM user_accounts_table WHERE gmail = :gmail AND password = :password")
+    suspend fun getUserId(gmail: String, password: String): Int?
 }

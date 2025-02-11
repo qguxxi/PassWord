@@ -17,32 +17,38 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.synth.password.R
 import com.synth.password.data.local.Account
 import com.synth.password.navigation.PassWordDestinations
 import com.synth.password.ui.components.CustomTextField
+import com.synth.password.ui.theme.largeTypo
 import com.synth.password.ui.viewmodel.AccountViewModel
-import java.util.UUID
+import com.synth.password.ui.viewmodel.SharedViewModel
+import kotlinx.coroutines.launch
 
 @Composable
-fun AccountScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun AccountScreen(
+    accountViewModel: AccountViewModel,
+    navController: NavController,
+
+) {
     var title by remember { mutableStateOf("") }
     var account by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
 
     Surface(
         color = MaterialTheme.colorScheme.surface
@@ -50,7 +56,9 @@ fun AccountScreen(navController: NavController, modifier: Modifier = Modifier) {
         Column {
             IconButton(
                 onClick = {
-                    navController.navigate(PassWordDestinations.Main.route)
+                    navController.navigate(PassWordDestinations.Main.route) {
+                        popUpTo(PassWordDestinations.Account.route)
+                    }
                 },
                 modifier = Modifier.padding(24.dp)
             ) {
@@ -122,9 +130,18 @@ fun AccountScreen(navController: NavController, modifier: Modifier = Modifier) {
                     )
                 }
                 Spacer(modifier = Modifier.height(24.dp))
-                Button(onClick = {
-                    navController.navigate(PassWordDestinations.Main.route) // Navigate back to HomeScreen
-                }) {
+                Button(
+                    onClick = {
+                        accountViewModel.viewModelScope.launch {
+                            val newAccount = Account(0, title, account, password)
+                            accountViewModel.saveAccountData(newAccount)
+
+                            // Chỉ chuyển màn hình khi dữ liệu đã lưu xong
+                            navController.navigate(PassWordDestinations.Main.route)
+                        }
+
+                    }
+                ) {
                     Text(text = "Hoàn thành")
                 }
             }
@@ -133,8 +150,3 @@ fun AccountScreen(navController: NavController, modifier: Modifier = Modifier) {
 }
 
 
-@Preview
-@Composable
-private fun AccountScreenPreview() {
-    AccountScreen(navController = rememberNavController())
-}
